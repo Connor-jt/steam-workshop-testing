@@ -47,7 +47,7 @@ public:
 				return;
 			
 			// mod metadata
-			char pchMetadata[1024] = {};
+			char pchMetadata[1024] = {}; // no return
 			if (!SteamUGC()->GetQueryUGCMetadata(ugc_handle, ugc_index, pchMetadata, 1024))
 				return;
 
@@ -84,7 +84,7 @@ public:
 			uint64 favorites;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFavorites, &favorites)) 
 				return;
-			uint64 followers;
+			uint64 followers; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFollowers, &followers)) 
 				return;
 			uint64 unique_subscriptions;
@@ -93,28 +93,28 @@ public:
 			uint64 unique_favorites;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFavorites, &unique_favorites)) 
 				return;
-			uint64 unique_followers;
+			uint64 unique_followers; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFollowers, &unique_followers)) 
 				return;
 			uint64 unique_views;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueWebsiteViews, &unique_views)) 
 				return;
-			uint64 report_score;
+			uint64 report_score; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_ReportScore, &report_score)) 
 				return;
-			uint64 seconds;
+			uint64 seconds; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayed, &seconds)) 
 				return;
-			uint64 sessions;
+			uint64 sessions; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessions, &sessions)) 
 				return;
 			uint64 comments;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumComments, &comments)) 
 				return;
-			uint64 seconds_recent;
+			uint64 seconds_recent; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayedDuringTimePeriod, &seconds_recent)) 
 				return;
-			uint64 sessions_recent;
+			uint64 sessions_recent; // no return
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod, &sessions_recent)) 
 				return;
 
@@ -125,13 +125,14 @@ public:
 				if (!SteamUGC()->GetQueryUGCChildren(ugc_handle, ugc_index, mod_children, item_details.m_unNumChildren))
 					return;
 			}
+			int test123 = 1;
 		}
 	}
 	CCallResult<WorkshopResults, SteamUGCQueryCompleted_t> m_SteamCallResultUGCQueryCompleted;
 };
 
-void OnUGCQueryCompleted(SteamUGCQueryCompleted_t* pParam, bool bIOFailure);
-CCallResult<CSpaceWarClient, SteamUGCQueryCompleted_t> m_SteamCallResultUGCQueryCompleted;
+//void OnUGCQueryCompleted(SteamUGCQueryCompleted_t* pParam, bool bIOFailure);
+//CCallResult<CSpaceWarClient, SteamUGCQueryCompleted_t> m_SteamCallResultUGCQueryCompleted;
 
 
 int main(){
@@ -172,7 +173,8 @@ int main(){
 	SteamAPICall_t API_call = SteamUGC()->SendQueryUGCRequest(results_obj->ugc_handle);
 	results_obj->m_SteamCallResultUGCQueryCompleted.Set(API_call, results_obj, &WorkshopResults::OnUGCQueryComplete);
 
-	sleep_for(200ms);
-	std::getchar();
-	std::getchar();
+	for (;;) {
+		sleep_for(1000ms);
+		SteamAPI_RunCallbacks();
+	}
 }
