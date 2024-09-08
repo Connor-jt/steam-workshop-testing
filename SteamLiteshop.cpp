@@ -84,39 +84,39 @@ public:
 			uint64 favorites;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFavorites, &favorites)) 
 				return;
-			uint64 followers; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFollowers, &followers)) 
-				return;
+			//uint64 followers; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFollowers, &followers)) 
+			//	return;
 			uint64 unique_subscriptions;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueSubscriptions, &unique_subscriptions)) 
 				return;
 			uint64 unique_favorites;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFavorites, &unique_favorites)) 
 				return;
-			uint64 unique_followers; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFollowers, &unique_followers)) 
-				return;
+			//uint64 unique_followers; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFollowers, &unique_followers)) 
+			//	return;
 			uint64 unique_views;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueWebsiteViews, &unique_views)) 
 				return;
-			uint64 report_score; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_ReportScore, &report_score)) 
-				return;
-			uint64 seconds; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayed, &seconds)) 
-				return;
-			uint64 sessions; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessions, &sessions)) 
-				return;
+			//uint64 report_score; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_ReportScore, &report_score)) 
+			//	return;
+			//uint64 seconds; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayed, &seconds)) 
+			//	return;
+			//uint64 sessions; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessions, &sessions)) 
+			//	return;
 			uint64 comments;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumComments, &comments)) 
 				return;
-			uint64 seconds_recent; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayedDuringTimePeriod, &seconds_recent)) 
-				return;
-			uint64 sessions_recent; // no return
-			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod, &sessions_recent)) 
-				return;
+			//uint64 seconds_recent; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayedDuringTimePeriod, &seconds_recent)) 
+			//	return;
+			//uint64 sessions_recent; // no return
+			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod, &sessions_recent)) 
+			//	return;
 
 
 			// mod children
