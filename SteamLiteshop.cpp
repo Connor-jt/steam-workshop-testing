@@ -84,39 +84,39 @@ public:
 			uint64 favorites;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFavorites, &favorites)) 
 				return;
-			//uint64 followers; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFollowers, &followers)) 
-			//	return;
+			uint64 followers; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumFollowers, &followers)) 
+				return;
 			uint64 unique_subscriptions;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueSubscriptions, &unique_subscriptions)) 
 				return;
 			uint64 unique_favorites;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFavorites, &unique_favorites)) 
 				return;
-			//uint64 unique_followers; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFollowers, &unique_followers)) 
-			//	return;
+			uint64 unique_followers; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueFollowers, &unique_followers)) 
+				return;
 			uint64 unique_views;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumUniqueWebsiteViews, &unique_views)) 
 				return;
-			//uint64 report_score; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_ReportScore, &report_score)) 
-			//	return;
-			//uint64 seconds; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayed, &seconds)) 
-			//	return;
-			//uint64 sessions; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessions, &sessions)) 
-			//	return;
+			uint64 report_score; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_ReportScore, &report_score)) 
+				return;
+			uint64 seconds; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayed, &seconds)) 
+				return;
+			uint64 sessions; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessions, &sessions)) 
+				return;
 			uint64 comments;
 			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumComments, &comments)) 
 				return;
-			//uint64 seconds_recent; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayedDuringTimePeriod, &seconds_recent)) 
-			//	return;
-			//uint64 sessions_recent; // no return
-			//if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod, &sessions_recent)) 
-			//	return;
+			uint64 seconds_recent; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumSecondsPlayedDuringTimePeriod, &seconds_recent)) 
+				return;
+			uint64 sessions_recent; // no return
+			if (!SteamUGC()->GetQueryUGCStatistic(ugc_handle, ugc_index, k_EItemStatistic_NumPlaytimeSessionsDuringTimePeriod, &sessions_recent)) 
+				return;
 
 
 			// mod children
@@ -157,16 +157,25 @@ int main(){
 
 	// create workshop results object
 	WorkshopResults* results_obj = new WorkshopResults;
-	//{
-		int subscribed_count = SteamUGC()->GetNumSubscribedItems();
-		results_obj->items = new PublishedFileId_t[subscribed_count];
-		results_obj->item_count = SteamUGC()->GetSubscribedItems(results_obj->items, subscribed_count);
-	//}
-	results_obj->ugc_handle = SteamUGC()->CreateQueryUGCDetailsRequest(results_obj->items, results_obj->item_count);
+
+	// results from subscribed workshop //
+	//int subscribed_count = SteamUGC()->GetNumSubscribedItems();
+	//results_obj->items = new PublishedFileId_t[subscribed_count];
+	//results_obj->item_count = SteamUGC()->GetSubscribedItems(results_obj->items, subscribed_count);
+	//results_obj->ugc_handle = SteamUGC()->CreateQueryUGCDetailsRequest(results_obj->items, results_obj->item_count);
+
+	// results from steam search //
+	results_obj->item_count = kNumUGCResultsPerPage;
+	results_obj->ugc_handle = SteamUGC()->CreateQueryAllUGCRequest(k_EUGCQuery_RankedByLastUpdatedDate, k_EUGCMatchingUGCType_Items, 105600, 105600, 1);
+
+
+
 	// configure UGC request
 	if (!SteamUGC()->SetReturnLongDescription(results_obj->ugc_handle, true)
 	||  !SteamUGC()->SetReturnMetadata(results_obj->ugc_handle, true)
 	||  !SteamUGC()->SetReturnAdditionalPreviews(results_obj->ugc_handle, true)
+	||  !SteamUGC()->SetReturnPlaytimeStats(results_obj->ugc_handle, true)
+	//||  !SteamUGC()->SetSearchText(results_obj->ugc_handle, "test")
 	||  !SteamUGC()->SetReturnChildren(results_obj->ugc_handle, true))
 		std::cout << "debug: fail";
 	// then send it off??
